@@ -35,7 +35,7 @@ vitesse définie en tour/s
 tour/s en step/ms : (60*1000/(STEP_PER_T*vitesse)
 minutes(en ms)/ 
 */
-#define TO_STEP_MS(a) (60000/(STEP_PER_T*(a)))
+#define TO_STEP_MS(a) (120000/(STEP_PER_T*(a)))
 
 // #define DEBUG_STEPPER
 
