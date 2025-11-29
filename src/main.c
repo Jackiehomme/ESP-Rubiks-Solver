@@ -185,7 +185,7 @@ void orientF()
   // place la face physique F en U
   moveServo(SERVOB, SB_OPEN);
   vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
-  turnMultiple(180, CW, &M1, &M3);
+  turnMultiple(180, CCW, &M1, &M3);
   vTaskDelay(MOTOR_MS / portTICK_PERIOD_MS);
   moveServo(SERVOB, SB_CLOSE);
   vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
@@ -231,7 +231,7 @@ void up(int degree, int sens)
 
   moveServo(SERVOB, SB_OPEN);
   vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
-  turnMultiple(90, CCW, &M2, &M4);
+  turnMultiple(90, CW, &M2, &M4);
   vTaskDelay(MOTOR_MS / portTICK_PERIOD_MS);
   moveServo(SERVOB, SB_CLOSE);
   vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
@@ -399,122 +399,56 @@ void StringToMoves(uint8_t *moves)
           vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
           turnMultiple(90, CCW, &M2, &M4);
           vTaskDelay(MOTOR_MS / portTICK_PERIOD_MS);
-          moveServo(SERVOA, SA_CLOSE);
-          vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
-
-          moveServo(SERVOB, SB_OPEN);
-          vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
-          turnMultiple(90, CCW, &M2, &M4);
-          vTaskDelay(MOTOR_MS / portTICK_PERIOD_MS);
-          moveServo(SERVOB, SB_CLOSE);
-          vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
         }
         else if (arg_char == 2)
         { // Présentation face B
           printf("SHOW : %d°\n", arg_char);
-          moveServo(SERVOA, SA_OPEN);
-          vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
           turnMultiple(180, CW, &M2, &M4);
           vTaskDelay(MOTOR_MS / portTICK_PERIOD_MS);
-          moveServo(SERVOA, SA_CLOSE);
-          vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
         }
         else if (arg_char == 3)
         { // Présentation face L
           printf("SHOW : %d°\n", arg_char);
+          moveServo(SERVOA, SA_CLOSE);
           moveServo(SERVOB, SB_OPEN);
           vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
           turnMultiple(90, CCW, &M1, &M3);
           vTaskDelay(MOTOR_MS / portTICK_PERIOD_MS);
-          moveServo(SERVOB, SB_CLOSE);
-          vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
-
-          moveServo(SERVOA, SA_OPEN);
-          vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
-          turnMultiple(90, CCW, &M1, &M3);
-          vTaskDelay(MOTOR_MS / portTICK_PERIOD_MS);
-          moveServo(SERVOA, SA_CLOSE);
-          vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
         }
         else if (arg_char == 4)
         { // Présentation face R
           printf("SHOW : %d°\n", arg_char);
-          moveServo(SERVOA, SA_OPEN);
-          vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
-          turnMultiple(180, CW, &M2, &M4);
+          turnMultiple(180, CW, &M1, &M3);
           vTaskDelay(MOTOR_MS / portTICK_PERIOD_MS);
-          moveServo(SERVOA, SA_CLOSE);
-          vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
         }
         else if (arg_char == 5)
         { // Présentation face D
           printf("SHOW : %d°\n", arg_char);
-          moveServo(SERVOA, SA_OPEN);
-          vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
           turnMultiple(90, CCW, &M2, &M4);
-          vTaskDelay(MOTOR_MS / portTICK_PERIOD_MS);
-          moveServo(SERVOA, SA_CLOSE);
           vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
-
-          moveServo(SERVOB, SB_OPEN);
-          vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
-          turnMultiple(90, CCW, &M2, &M4);
-          vTaskDelay(MOTOR_MS / portTICK_PERIOD_MS);
           moveServo(SERVOB, SB_CLOSE);
           vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
+          moveServo(SERVOA, SA_OPEN);
+          vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
+          turnMultiple(90, CW, &M2, &M4);
+          vTaskDelay(MOTOR_MS / portTICK_PERIOD_MS);
         }
         else if (arg_char == 6)
         { // Présentation face U
           printf("SHOW : %d°\n", arg_char);
-          moveServo(SERVOA, SA_OPEN);
-          vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
-          turnMultiple(180, CW, &M2, &M4);
+          turnMultiple(180, CCW, &M2, &M4);
           vTaskDelay(MOTOR_MS / portTICK_PERIOD_MS);
-          moveServo(SERVOA, SA_CLOSE);
-          vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
         }
         else if (arg_char == 7)
-        { 
+        { //Pince 1,2,3 et 4 au position initiale
           printf("SHOW : %d°\n", arg_char);
-          moveServo(SERVOA, SA_OPEN);
-          vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
-          turnMultiple(90, CCW, &M2, &M4);
-          vTaskDelay(MOTOR_MS / portTICK_PERIOD_MS);
-          moveServo(SERVOA, SA_CLOSE);
-          vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
-
-          moveServo(SERVOB, SB_OPEN);
-          vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
-          turnMultiple(90, CCW, &M2, &M4);
-          vTaskDelay(MOTOR_MS / portTICK_PERIOD_MS);
-          moveServo(SERVOB, SB_CLOSE);
-          vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
-
-          moveServo(SERVOB, SB_OPEN);
-          vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
           turnMultiple(90, CCW, &M1, &M3);
-          vTaskDelay(MOTOR_MS / portTICK_PERIOD_MS);
-          moveServo(SERVOB, SB_CLOSE);
-          vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
-
-          moveServo(SERVOA, SA_OPEN);
-          vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
-          turnMultiple(90, CCW, &M1, &M3);
-          vTaskDelay(MOTOR_MS / portTICK_PERIOD_MS);
           moveServo(SERVOA, SA_CLOSE);
           vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
-
-          moveServo(SERVOA, SA_OPEN);
-          vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
-          turnMultiple(90, CW, &M2, &M4);
-          vTaskDelay(MOTOR_MS / portTICK_PERIOD_MS);
-          moveServo(SERVOA, SA_CLOSE);
-          vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
-
           moveServo(SERVOB, SB_OPEN);
-          vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
-          turnMultiple(90, CW, &M2, &M4);
           vTaskDelay(MOTOR_MS / portTICK_PERIOD_MS);
+          turnMultiple(90, CCW, &M2, &M4);
+          vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
           moveServo(SERVOB, SB_CLOSE);
           vTaskDelay(SERVO_MS / portTICK_PERIOD_MS);
         }
@@ -523,7 +457,8 @@ void StringToMoves(uint8_t *moves)
       else if (strcmp(direction, "RELEASE") == 0)
       {
         printf("RELEASE\n");
-
+        moveServo(SERVOB, SB_OPEN);
+        moveServo(SERVOA, SA_OPEN);
         break;
       }
       else

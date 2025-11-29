@@ -26,6 +26,7 @@
 #define TIMER 1000000u
 #define Q20 1048576UL
 #define Q15 32768u
+#define SLOWNESS_FACTOR 4
 
 #define CNST_RATIO1 (uint32_t) ((((uint32_t) TIMER * C0_COMPENSATION_FACTOR) / 256u))
 #define CNST_RATIO2 (uint32_t) (STEP_ANGLE_Q15* ((uint32_t) TIMER))

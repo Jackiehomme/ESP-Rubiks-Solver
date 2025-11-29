@@ -56,25 +56,26 @@ void turn(uint16_t degree, uint8_t dir, Motor *m){
     // 1. Conversion de l'angle en nombre de pas
     uint16_t step = DEG_TO_STEP(degree); // nombre de steps à tourner
     
+    uint16_t effective_speed = (m->speed) / SLOWNESS_FACTOR;
     // 2. Calcul du délais unique pour la vitesse cible
     // La formule utilisée précédemment pour le délai final est conservée :
     // FinalDelay = CNST_RATIO2 / (m->speed * Q15)
-    uint32_t temp = (uint32_t) m->speed * Q15;
+    uint32_t temp = (uint32_t) effective_speed * Q15;
     uint16_t FinalDelay = (uint16_t) (CNST_RATIO2 / temp); 
     
     // 3. Définir la direction
     gpio_set_level(m->DIR_pin, dir);
     
     // 4. Délai de stabilisation après changement de direction
-    ets_delay_us(50); // Un petit délai, souvent nécessaire
+    ets_delay_us(10000); // Un petit délai, souvent nécessaire
     
     // 5. Boucle de mouvement à vitesse constante
     for(uint16_t i = 0; i < step; i++){
         
         gpio_set_level(m->STEP_pin, HIGH);
-        ets_delay_us(5000);
+        ets_delay_us(10000);
         gpio_set_level(m->STEP_pin, LOW);
-        ets_delay_us(5000);
+        ets_delay_us(10000);
         ets_delay_us(FinalDelay);
     }
 }
@@ -84,9 +85,10 @@ void turnMultiple(uint16_t degree, uint8_t dir, Motor *m1, Motor *m2){
     // 1. Conversion de l'angle en nombre de pas (utilise les paramètres de m1 ou m2, car ils doivent être les mêmes)
     uint16_t step = DEG_TO_STEP(degree); // nombre de steps à tourner
     
+    uint16_t effective_speed = (m1->speed) / SLOWNESS_FACTOR;
     // 2. Calcul du délais unique pour la vitesse cible (basé sur la vitesse de m1)
     // FinalDelay est le délai constant entre les pas.
-    uint32_t temp = (uint32_t) m1->speed * Q15;
+    uint32_t temp = (uint32_t) effective_speed * Q15;
     uint16_t FinalDelay = (uint16_t) (CNST_RATIO2 / temp); 
     
     // 3. Définir les directions
@@ -96,21 +98,24 @@ void turnMultiple(uint16_t degree, uint8_t dir, Motor *m1, Motor *m2){
     gpio_set_level(m2->DIR_pin, !dir);
     
     // 4. Délai de stabilisation après changement de direction
-    ets_delay_us(5000); 
+    ets_delay_us(10000); 
     
     // 5. Boucle de mouvement à vitesse constante
     for(uint16_t i = 0; i < step; i++){
         
         // Les deux moteurs bougent de 1 step SIMULTANÉMENT
         gpio_set_level(m1->STEP_pin, HIGH);
+        ets_delay_us(10000);
         gpio_set_level(m2->STEP_pin, HIGH);
         
-        ets_delay_us(5000); // 1us de delais pour la largeur de l'impulsion STEP
+        ets_delay_us(10000); // 1us de delais pour la largeur de l'impulsion STEP
         // sendByte(data); // Laissez cette ligne en commentaire ou supprimez-la si elle est inutile
         
         gpio_set_level(m1->STEP_pin, LOW);
+        ets_delay_us(10000);
         gpio_set_level(m2->STEP_pin, LOW);
-        
+
+        ets_delay_us(10000);
         // Délai constant appliqué aux deux moteurs
         ets_delay_us(FinalDelay);
     }
